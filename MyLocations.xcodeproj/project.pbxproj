@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C4F32081D79AC80003D4725 /* TagDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F32071D79AC80003D4725 /* TagDescriptionViewController.swift */; };
 		5C5B1AAB1D786CF300314B17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B1AAA1D786CF300314B17 /* AppDelegate.swift */; };
 		5C5B1AAD1D786CF300314B17 /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B1AAC1D786CF300314B17 /* CurrentLocationViewController.swift */; };
 		5C5B1AAF1D786CF300314B17 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B1AAE1D786CF300314B17 /* SecondViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C4F32071D79AC80003D4725 /* TagDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagDescriptionViewController.swift; sourceTree = "<group>"; };
 		5C5B1AA71D786CF300314B17 /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C5B1AAA1D786CF300314B17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C5B1AAC1D786CF300314B17 /* CurrentLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +39,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C4F32091D79AC91003D4725 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5C5B1AAC1D786CF300314B17 /* CurrentLocationViewController.swift */,
+				5C5B1AAE1D786CF300314B17 /* SecondViewController.swift */,
+				5C4F32071D79AC80003D4725 /* TagDescriptionViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		5C4F320A1D79AC9B003D4725 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5C5B1AB01D786CF300314B17 /* Main.storyboard */,
+				5C5B1AB51D786CF300314B17 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 		5C5B1A9E1D786CF300314B17 = {
 			isa = PBXGroup;
 			children = (
@@ -57,11 +78,9 @@
 			isa = PBXGroup;
 			children = (
 				5C5B1AAA1D786CF300314B17 /* AppDelegate.swift */,
-				5C5B1AAC1D786CF300314B17 /* CurrentLocationViewController.swift */,
-				5C5B1AAE1D786CF300314B17 /* SecondViewController.swift */,
-				5C5B1AB01D786CF300314B17 /* Main.storyboard */,
+				5C4F32091D79AC91003D4725 /* Controllers */,
+				5C4F320A1D79AC9B003D4725 /* Storyboards */,
 				5C5B1AB31D786CF300314B17 /* Assets.xcassets */,
-				5C5B1AB51D786CF300314B17 /* LaunchScreen.storyboard */,
 				5C5B1AB81D786CF300314B17 /* Info.plist */,
 			);
 			path = MyLocations;
@@ -138,6 +157,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C4F32081D79AC80003D4725 /* TagDescriptionViewController.swift in Sources */,
 				5C5B1AAF1D786CF300314B17 /* SecondViewController.swift in Sources */,
 				5C5B1AAB1D786CF300314B17 /* AppDelegate.swift in Sources */,
 				5C5B1AAD1D786CF300314B17 /* CurrentLocationViewController.swift in Sources */,
@@ -290,6 +310,7 @@
 				5C5B1ABD1D786CF300314B17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -30,7 +30,7 @@ class CurrentLocationViewController: UIViewController {
     var performingReverseGeocoding = false
     var lastGeocodingError: NSError?
     
-    // MARK: Controller lifecycle
+    // MARK: Controller overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +43,17 @@ class CurrentLocationViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "tagDescriptionSegue" {
+//            guard let navigationController = segue.destinationViewController as? UINavigationController
+//                else { return }
+            if let navigationController = segue.destinationViewController as? UINavigationController,
+            tagDescriptionViewController = navigationController.viewControllers[0] as? TagDescriptionViewController {
+                tagDescriptionViewController.coordinate = location!.coordinate
+                tagDescriptionViewController.placemark  = placemark
+            }
+        }
+    }
     
     // MARK: Methods
     @IBAction func getButtonTapped(sender: AnyObject) {
