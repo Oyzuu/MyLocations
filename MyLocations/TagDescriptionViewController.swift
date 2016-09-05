@@ -25,12 +25,15 @@ class TagDescriptionViewController: UITableViewController {
         formatter.timeStyle = .ShortStyle
         return formatter
     }()
-
+    
+    var category = "No category"
+    
+    // MARK: Controller overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         
         descriptionArea.text = ""
-        categoryLabel.text   = ""
+        categoryLabel.text   = category
         latitudeLabel.text   = String(format: "%.8f", coordinate.latitude)
         longitudeLabel.text  = String(format: "%.8f", coordinate.longitude)
         
@@ -48,12 +51,33 @@ class TagDescriptionViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "CategoryTableSegue" {
+            if let categoryTableViewController = segue.destinationViewController as? CategoryTableViewController {
+//                categoryTableViewController.delegate         = self
+                categoryTableViewController.selectedCategory = category
+            }
+        }
+    }
+    
+    // MARK: Methods
     @IBAction func cancel(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func done(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func categoryPickerDidPickCategory(segue: UIStoryboardSegue) {
+        print("unwind working")
+        
+        if segue.identifier == "pickedCategory" {
+            if let controller = segue.sourceViewController as? CategoryTableViewController {
+                category = controller.selectedCategory
+                categoryLabel.text = category
+            }
+        }
     }
     
     private func stringFromPlacemark(placemark: CLPlacemark) -> String {
@@ -88,3 +112,11 @@ class TagDescriptionViewController: UITableViewController {
         return dateFormatter.stringFromDate(date)
     }
 }
+
+//extension TagDescriptionViewController: CategoryTableDelegate {
+//    func categoryTable(controller: CategoryTableViewController, didSelect: String) {
+//        category           = didSelect
+//        categoryLabel.text = category
+//        self.navigationController?.popViewControllerAnimated(true)
+//    }
+//}
