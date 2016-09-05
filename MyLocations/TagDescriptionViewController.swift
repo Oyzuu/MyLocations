@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import MBProgressHUD
 
 class TagDescriptionViewController: UITableViewController {
     @IBOutlet weak var descriptionArea: UITextView!
@@ -66,7 +67,20 @@ class TagDescriptionViewController: UITableViewController {
     }
     
     @IBAction func done(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        let hud        = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.mode       = .CustomView
+        let image      = UIImage(named: "glyph-check")?.imageWithRenderingMode(.AlwaysTemplate)
+        hud.customView = UIImageView(image: image)
+        hud.label.text = "Done"
+        
+//        hud.hideAnimated(true, afterDelay: 5)
+//        hud.completionBlock = {
+//            self.dismissViewControllerAnimated(true, completion: nil)
+//        }
+        
+        afterDelay(1) {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     @IBAction func categoryPickerDidPickCategory(segue: UIStoryboardSegue) {
