@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		17BA547D00A4A6BB8B312D22 /* Pods_MyLocations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB329E72274104ECE668C5D /* Pods_MyLocations.framework */; };
 		5C46E48B1D7D973F00AC6DD7 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C46E48A1D7D973F00AC6DD7 /* Functions.swift */; };
+		5C46E48E1D7D9ABD00AC6DD7 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C46E48C1D7D9ABD00AC6DD7 /* DataModel.xcdatamodeld */; };
+		5C46E4961D7D9DD200AC6DD7 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C46E4941D7D9DD200AC6DD7 /* Location.swift */; };
+		5C46E4971D7D9DD200AC6DD7 /* Location+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C46E4951D7D9DD200AC6DD7 /* Location+CoreDataProperties.swift */; };
 		5C4F32081D79AC80003D4725 /* TagDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F32071D79AC80003D4725 /* TagDescriptionViewController.swift */; };
 		5C5B1AAB1D786CF300314B17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B1AAA1D786CF300314B17 /* AppDelegate.swift */; };
 		5C5B1AAD1D786CF300314B17 /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B1AAC1D786CF300314B17 /* CurrentLocationViewController.swift */; };
@@ -22,6 +25,9 @@
 /* Begin PBXFileReference section */
 		5C46E4891D7D8DA200AC6DD7 /* MyLocations-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyLocations-BridgingHeader.h"; sourceTree = "<group>"; };
 		5C46E48A1D7D973F00AC6DD7 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		5C46E48D1D7D9ABD00AC6DD7 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		5C46E4941D7D9DD200AC6DD7 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		5C46E4951D7D9DD200AC6DD7 /* Location+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5C4F32071D79AC80003D4725 /* TagDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagDescriptionViewController.swift; sourceTree = "<group>"; };
 		5C5B1AA71D786CF300314B17 /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C5B1AAA1D786CF300314B17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C46E48F1D7D9D4800AC6DD7 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				5C46E4941D7D9DD200AC6DD7 /* Location.swift */,
+				5C46E4951D7D9DD200AC6DD7 /* Location+CoreDataProperties.swift */,
+			);
+			name = Domain;
+			sourceTree = "<group>";
+		};
 		5C4F32091D79AC91003D4725 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +105,7 @@
 		5C5B1AA91D786CF300314B17 /* MyLocations */ = {
 			isa = PBXGroup;
 			children = (
+				5C46E48F1D7D9D4800AC6DD7 /* Domain */,
 				5C4F32091D79AC91003D4725 /* Controllers */,
 				5C4F320A1D79AC9B003D4725 /* Storyboards */,
 				5C5B1AAA1D786CF300314B17 /* AppDelegate.swift */,
@@ -97,6 +113,7 @@
 				5C5B1AB81D786CF300314B17 /* Info.plist */,
 				5C46E4891D7D8DA200AC6DD7 /* MyLocations-BridgingHeader.h */,
 				5C46E48A1D7D973F00AC6DD7 /* Functions.swift */,
+				5C46E48C1D7D9ABD00AC6DD7 /* DataModel.xcdatamodeld */,
 			);
 			path = MyLocations;
 			sourceTree = "<group>";
@@ -242,7 +259,10 @@
 			files = (
 				5C4F32081D79AC80003D4725 /* TagDescriptionViewController.swift in Sources */,
 				5C5B1AAF1D786CF300314B17 /* SecondViewController.swift in Sources */,
+				5C46E4961D7D9DD200AC6DD7 /* Location.swift in Sources */,
 				5C74E3891D7D53DF00FC0CD3 /* CategoryTableViewController.swift in Sources */,
+				5C46E48E1D7D9ABD00AC6DD7 /* DataModel.xcdatamodeld in Sources */,
+				5C46E4971D7D9DD200AC6DD7 /* Location+CoreDataProperties.swift in Sources */,
 				5C5B1AAB1D786CF300314B17 /* AppDelegate.swift in Sources */,
 				5C5B1AAD1D786CF300314B17 /* CurrentLocationViewController.swift in Sources */,
 				5C46E48B1D7D973F00AC6DD7 /* Functions.swift in Sources */,
@@ -402,6 +422,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5C46E48C1D7D9ABD00AC6DD7 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5C46E48D1D7D9ABD00AC6DD7 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 5C46E48D1D7D9ABD00AC6DD7 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5C5B1A9F1D786CF300314B17 /* Project object */;
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 import MBProgressHUD
 
 class TagDescriptionViewController: UITableViewController {
@@ -21,13 +22,15 @@ class TagDescriptionViewController: UITableViewController {
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var placemark: CLPlacemark?
     let dateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
+        let formatter       = NSDateFormatter()
         formatter.dateStyle = .MediumStyle
         formatter.timeStyle = .ShortStyle
         return formatter
     }()
     
     var category = "No category"
+    var managedObjectContext: NSManagedObjectContext!
+    var date = NSDate()
     
     // MARK: Controller overrides
     override func viewDidLoad() {
@@ -45,7 +48,7 @@ class TagDescriptionViewController: UITableViewController {
             addressLabel.text = "No address found"
         }
         
-        dateLabel.text = formatDate(NSDate())
+        dateLabel.text = formatDate(date)
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,19 +70,42 @@ class TagDescriptionViewController: UITableViewController {
     }
     
     @IBAction func done(sender: AnyObject) {
-        let hud        = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        hud.mode       = .CustomView
-        let image      = UIImage(named: "glyph-check")?.imageWithRenderingMode(.AlwaysTemplate)
-        hud.customView = UIImageView(image: image)
-        hud.label.text = "Done"
+        let location = NSEntityDescription.insertNewObjectForEntityForName(
+            "Location", inManagedObjectContext: managedObjectContext) as! Location
         
-//        hud.hideAnimated(true, afterDelay: 5)
-//        hud.completionBlock = {
-//            self.dismissViewControllerAnimated(true, completion: nil)
-//        }
+        location.locationDescription = descriptionArea.text
         
-        afterDelay(1) {
-            self.dismissViewControllerAnimated(true, completion: nil)
+        location.category  = category
+        location.latitude  = coordinate.latitude
+        location.longitude = coordinate.longitude
+        location.date      = date
+        location.placemark = placemark
+        
+        do {
+            try managedObjectContext.save()
+            let hud        = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            hud.mode       = .CustomView
+            let image      = UIImage(named: "glyph-check")?.imageWithRenderingMode(.AlwaysTemplate)
+            hud.customView = UIImageView(image: image)
+            hud.label.text = "Done"
+            
+            //        hud.hideAnimated(true, afterDelay: 5)
+            //        hud.completionBlock = {
+            //            self.dismissViewControllerAnimated(true, completion: nil)
+            //        }
+            
+            afterDelay(1) {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+        catch {
+//            let alert = UIAlertController(title: "error", message: "Impossible to save location",
+//                                          preferredStyle: .Alert)
+//            let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+//            alert.addAction(action)
+//            presentViewController(alert, animated: true, completion: nil)
+            
+            fatalCoreDataError(error)
         }
     }
     

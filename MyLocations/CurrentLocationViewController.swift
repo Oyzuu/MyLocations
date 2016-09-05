@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class CurrentLocationViewController: UIViewController {
     // MARK: Controller attributes
@@ -19,6 +20,7 @@ class CurrentLocationViewController: UIViewController {
     @IBOutlet weak var getButton: UIButton!
     
     var timer: NSTimer?
+    var managedObjectContext: NSManagedObjectContext!
     
     let locationManager = CLLocationManager()
     var location: CLLocation?
@@ -51,6 +53,8 @@ class CurrentLocationViewController: UIViewController {
             tagDescriptionViewController = navigationController.viewControllers[0] as? TagDescriptionViewController {
                 tagDescriptionViewController.coordinate = location!.coordinate
                 tagDescriptionViewController.placemark  = placemark
+                
+                tagDescriptionViewController.managedObjectContext = self.managedObjectContext
             }
         }
     }
@@ -194,7 +198,6 @@ class CurrentLocationViewController: UIViewController {
     }
     
     private func startLocationManager() {
-        print("in startLocationManager")
         guard CLLocationManager.locationServicesEnabled() else {
             return
         }
@@ -210,7 +213,6 @@ class CurrentLocationViewController: UIViewController {
     }
     
     private func stopLocationManager() {
-        print("in stopLocationManager")
         guard updatingLocation else {
             return
         }
@@ -270,7 +272,6 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
             updateLabels()
             
             if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy {
-                print("there")
                 stopLocationManager()
                 configureGetButton()
                 
@@ -280,8 +281,6 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
             }
             
             if !performingReverseGeocoding {
-                print("geocoding")
-                
                 performingReverseGeocoding = true
                 
                 geocoder.reverseGeocodeLocation(newLocation) {
@@ -305,7 +304,6 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
             let timeInterval = newLocation.timestamp.timeIntervalSinceDate(location!.timestamp)
             
             if timeInterval > 10 {
-                print("Force done")
                 stopLocationManager()
                 updateLabels()
                 configureGetButton()
