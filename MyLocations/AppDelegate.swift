@@ -76,9 +76,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         if let tabBarController = window!.rootViewController as? UITabBarController {
-            if let tabBarViewControllers = tabBarController.viewControllers,
-                currentLocationViewController = tabBarViewControllers[0] as? CurrentLocationViewController {
-                currentLocationViewController.managedObjectContext = managedObjectContext
+            if let tabBarViewControllers = tabBarController.viewControllers {
+                if let currentLocationViewController = tabBarViewControllers[0] as? CurrentLocationViewController {
+                    currentLocationViewController.managedObjectContext = managedObjectContext
+                }
+                if let navigationController = tabBarViewControllers[1] as? UINavigationController {
+                    if let locationsViewController = navigationController.viewControllers[0] as? LocationsViewController {
+                        locationsViewController.managedObjectContext = managedObjectContext
+                    }
+                }
             }
         }
         

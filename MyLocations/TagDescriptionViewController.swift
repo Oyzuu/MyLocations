@@ -31,12 +31,32 @@ class TagDescriptionViewController: UITableViewController {
     var category = "No category"
     var managedObjectContext: NSManagedObjectContext!
     var date = NSDate()
+    var descriptionText = ""
+    
+    var locationToEdit: Location? {
+        didSet {
+            guard let location = locationToEdit else {
+                return
+            }
+            
+            descriptionText      = location.locationDescription
+            category             = location.category
+            coordinate.latitude  = location.latitude
+            coordinate.longitude = location.longitude
+            date                 = location.date
+            placemark            = location.placemark
+        }
+    }
     
     // MARK: Controller overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        descriptionArea.text = ""
+        if locationToEdit != nil {
+            title = "Edit tag"
+        }
+        
+        descriptionArea.text = descriptionText
         categoryLabel.text   = category
         latitudeLabel.text   = String(format: "%.8f", coordinate.latitude)
         longitudeLabel.text  = String(format: "%.8f", coordinate.longitude)
@@ -58,7 +78,6 @@ class TagDescriptionViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "CategoryTableSegue" {
             if let categoryTableViewController = segue.destinationViewController as? CategoryTableViewController {
-//                categoryTableViewController.delegate         = self
                 categoryTableViewController.selectedCategory = category
             }
         }
@@ -70,8 +89,17 @@ class TagDescriptionViewController: UITableViewController {
     }
     
     @IBAction func done(sender: AnyObject) {
-        let location = NSEntityDescription.insertNewObjectForEntityForName(
+        let location: Location
+        var doneMessage: String
+        if let temp = locationToEdit {
+            location = temp
+            doneMessage = "Updated"
+        }
+        else {
+            location = NSEntityDescription.insertNewObjectForEntityForName(
             "Location", inManagedObjectContext: managedObjectContext) as! Location
+            doneMessage = "Tagged"
+        }
         
         location.locationDescription = descriptionArea.text
         
@@ -87,7 +115,7 @@ class TagDescriptionViewController: UITableViewController {
             hud.mode       = .CustomView
             let image      = UIImage(named: "glyph-check")?.imageWithRenderingMode(.AlwaysTemplate)
             hud.customView = UIImageView(image: image)
-            hud.label.text = "Done"
+            hud.label.text = doneMessage
             
             //        hud.hideAnimated(true, afterDelay: 5)
             //        hud.completionBlock = {
@@ -99,12 +127,6 @@ class TagDescriptionViewController: UITableViewController {
             }
         }
         catch {
-//            let alert = UIAlertController(title: "error", message: "Impossible to save location",
-//                                          preferredStyle: .Alert)
-//            let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-//            alert.addAction(action)
-//            presentViewController(alert, animated: true, completion: nil)
-            
             fatalCoreDataError(error)
         }
     }
@@ -152,11 +174,3 @@ class TagDescriptionViewController: UITableViewController {
         return dateFormatter.stringFromDate(date)
     }
 }
-
-//extension TagDescriptionViewController: CategoryTableDelegate {
-//    func categoryTable(controller: CategoryTableViewController, didSelect: String) {
-//        category           = didSelect
-//        categoryLabel.text = category
-//        self.navigationController?.popViewControllerAnimated(true)
-//    }
-//}

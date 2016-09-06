@@ -228,6 +228,18 @@ class CurrentLocationViewController: UIViewController {
         updateLabels()
         configureGetButton()
     }
+    
+    
+    @IBAction func didSwipe(sender: AnyObject) {
+        print("swipe left")
+        tabBarController?.transitionFromViewController(self,
+                                                       toViewController: (tabBarController?.viewControllers![1])!,
+                                                       duration: 0.3,
+                                                       options: UIViewAnimationOptions.CurveLinear,
+                                                       animations: nil,
+                                                       completion: nil)
+//        tabBarController?.selectedIndex = 1
+    }
 }
 
 

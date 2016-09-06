@@ -15,11 +15,12 @@
 		5C4F32081D79AC80003D4725 /* TagDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4F32071D79AC80003D4725 /* TagDescriptionViewController.swift */; };
 		5C5B1AAB1D786CF300314B17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B1AAA1D786CF300314B17 /* AppDelegate.swift */; };
 		5C5B1AAD1D786CF300314B17 /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B1AAC1D786CF300314B17 /* CurrentLocationViewController.swift */; };
-		5C5B1AAF1D786CF300314B17 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B1AAE1D786CF300314B17 /* SecondViewController.swift */; };
 		5C5B1AB21D786CF300314B17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C5B1AB01D786CF300314B17 /* Main.storyboard */; };
 		5C5B1AB41D786CF300314B17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C5B1AB31D786CF300314B17 /* Assets.xcassets */; };
 		5C5B1AB71D786CF300314B17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C5B1AB51D786CF300314B17 /* LaunchScreen.storyboard */; };
 		5C74E3891D7D53DF00FC0CD3 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C74E3881D7D53DF00FC0CD3 /* CategoryTableViewController.swift */; };
+		5CC5E6861D7EAA430073329D /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC5E6851D7EAA430073329D /* LocationsViewController.swift */; };
+		5CC5E6881D7EAC3A0073329D /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC5E6871D7EAC3A0073329D /* LocationCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,12 +33,13 @@
 		5C5B1AA71D786CF300314B17 /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C5B1AAA1D786CF300314B17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C5B1AAC1D786CF300314B17 /* CurrentLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewController.swift; sourceTree = "<group>"; };
-		5C5B1AAE1D786CF300314B17 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		5C5B1AB11D786CF300314B17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C5B1AB31D786CF300314B17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C5B1AB61D786CF300314B17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C5B1AB81D786CF300314B17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C74E3881D7D53DF00FC0CD3 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
+		5CC5E6851D7EAA430073329D /* LocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
+		5CC5E6871D7EAC3A0073329D /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		6E9466CDE31F5A31D42BE92D /* Pods-MyLocations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyLocations.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyLocations/Pods-MyLocations.release.xcconfig"; sourceTree = "<group>"; };
 		8FB329E72274104ECE668C5D /* Pods_MyLocations.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyLocations.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74632D8A91035E1315DA660 /* Pods-MyLocations.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyLocations.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyLocations/Pods-MyLocations.debug.xcconfig"; sourceTree = "<group>"; };
@@ -68,9 +70,9 @@
 			isa = PBXGroup;
 			children = (
 				5C5B1AAC1D786CF300314B17 /* CurrentLocationViewController.swift */,
-				5C5B1AAE1D786CF300314B17 /* SecondViewController.swift */,
 				5C4F32071D79AC80003D4725 /* TagDescriptionViewController.swift */,
 				5C74E3881D7D53DF00FC0CD3 /* CategoryTableViewController.swift */,
+				5CC5E6851D7EAA430073329D /* LocationsViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -105,6 +107,7 @@
 		5C5B1AA91D786CF300314B17 /* MyLocations */ = {
 			isa = PBXGroup;
 			children = (
+				5CC5E6891D7EACEF0073329D /* Model */,
 				5C46E48F1D7D9D4800AC6DD7 /* Domain */,
 				5C4F32091D79AC91003D4725 /* Controllers */,
 				5C4F320A1D79AC9B003D4725 /* Storyboards */,
@@ -116,6 +119,14 @@
 				5C46E48C1D7D9ABD00AC6DD7 /* DataModel.xcdatamodeld */,
 			);
 			path = MyLocations;
+			sourceTree = "<group>";
+		};
+		5CC5E6891D7EACEF0073329D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5CC5E6871D7EAC3A0073329D /* LocationCell.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		63AB03CE9B715C2F26FA1113 /* Frameworks */ = {
@@ -258,11 +269,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C4F32081D79AC80003D4725 /* TagDescriptionViewController.swift in Sources */,
-				5C5B1AAF1D786CF300314B17 /* SecondViewController.swift in Sources */,
 				5C46E4961D7D9DD200AC6DD7 /* Location.swift in Sources */,
+				5CC5E6861D7EAA430073329D /* LocationsViewController.swift in Sources */,
 				5C74E3891D7D53DF00FC0CD3 /* CategoryTableViewController.swift in Sources */,
 				5C46E48E1D7D9ABD00AC6DD7 /* DataModel.xcdatamodeld in Sources */,
 				5C46E4971D7D9DD200AC6DD7 /* Location+CoreDataProperties.swift in Sources */,
+				5CC5E6881D7EAC3A0073329D /* LocationCell.swift in Sources */,
 				5C5B1AAB1D786CF300314B17 /* AppDelegate.swift in Sources */,
 				5C5B1AAD1D786CF300314B17 /* CurrentLocationViewController.swift in Sources */,
 				5C46E48B1D7D973F00AC6DD7 /* Functions.swift in Sources */,
