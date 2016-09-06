@@ -13,6 +13,7 @@ class LocationCell: UITableViewCell {
     
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,8 +29,11 @@ class LocationCell: UITableViewCell {
         }
         else {
             descriptionLabel.text = location.locationDescription
+            
         }
-
+        
+        categoryLabel.text    = location.category
+        
         if let placemark = location.placemark {
             addressLabel.text = stringFromPlacemark(placemark)
         }

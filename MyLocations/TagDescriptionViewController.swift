@@ -115,6 +115,7 @@ class TagDescriptionViewController: UITableViewController {
             hud.mode       = .CustomView
             let image      = UIImage(named: "glyph-check")?.imageWithRenderingMode(.AlwaysTemplate)
             hud.customView = UIImageView(image: image)
+            // hud.bezelView to access background color
             hud.label.text = doneMessage
             
             //        hud.hideAnimated(true, afterDelay: 5)
