@@ -85,6 +85,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         locationsViewController.managedObjectContext = managedObjectContext
                     }
                 }
+                if let mapViewController = tabBarViewControllers[2] as? MapViewController {
+                    mapViewController.managedObjectContext = managedObjectContext
+                }
             }
         }
         

@@ -12,12 +12,19 @@ import CoreData
 import MBProgressHUD
 
 class TagDescriptionViewController: UITableViewController {
+    
+    // MARK: outlets
+    
     @IBOutlet weak var descriptionArea: UITextView!
     @IBOutlet weak var categoryLabel:   UILabel!
     @IBOutlet weak var latitudeLabel:   UILabel!
     @IBOutlet weak var longitudeLabel:  UILabel!
     @IBOutlet weak var addressLabel:    UILabel!
     @IBOutlet weak var dateLabel:       UILabel!
+    @IBOutlet weak var addPhotoLabel:   UILabel!
+    @IBOutlet weak var photoImage:      UIImageView!
+    
+    // MARK: attributes
     
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var placemark: CLPlacemark?
@@ -47,6 +54,8 @@ class TagDescriptionViewController: UITableViewController {
             placemark            = location.placemark
         }
     }
+    
+    var image: UIImage?
     
     // MARK: Controller overrides
     override func viewDidLoad() {
@@ -99,6 +108,7 @@ class TagDescriptionViewController: UITableViewController {
             location = NSEntityDescription.insertNewObjectForEntityForName(
             "Location", inManagedObjectContext: managedObjectContext) as! Location
             doneMessage = "Tagged"
+            location.photoID = nil
         }
         
         location.locationDescription = descriptionArea.text
@@ -109,8 +119,24 @@ class TagDescriptionViewController: UITableViewController {
         location.date      = date
         location.placemark = placemark
         
+        if let image = self.image {
+            if !location.hasPhoto {
+                location.photoID = Location.nextPhotoID()
+            }
+            
+            if let data = UIImageJPEGRepresentation(image, 0.5) {
+                do {
+                    try data.writeToFile(location.photoPath, options: .DataWritingAtomic)
+                }
+                catch {
+                    print("Erro writing file")
+                }
+            }
+        }
+        
         do {
             try managedObjectContext.save()
+            
             let hud        = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             hud.mode       = .CustomView
             let image      = UIImage(named: "glyph-check")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -174,4 +200,94 @@ class TagDescriptionViewController: UITableViewController {
     private func formatDate(date: NSDate) -> String {
         return dateFormatter.stringFromDate(date)
     }
+    
+    func pickPhoto() {
+        if true || UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            showPhotoMenu()
+        }
+        else {
+            takeOrChoosePhoto(.PhotoLibrary)
+        }
+    }
+    
+    func takeOrChoosePhoto(source: UIImagePickerControllerSourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType    = source
+        imagePicker.allowsEditing = true
+        imagePicker.delegate      = self
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    func showPhotoMenu() {
+        let alert           = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let cancelAction    = UIAlertAction(title: "Cancel",     style: .Cancel, handler:  nil)
+        let takePhotoAction = UIAlertAction(title: "Take photo", style: .Default) {
+            _ in
+            self.takeOrChoosePhoto(.Camera)
+        }
+        
+        let chooseFromLibraryAction = UIAlertAction(title: "Choose from library", style: .Default) {
+            _ in
+            self.takeOrChoosePhoto(.PhotoLibrary)
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(takePhotoAction)
+        alert.addAction(chooseFromLibraryAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func showImage(image: UIImage) {
+        photoImage.image     = image
+        photoImage.hidden    = false
+        addPhotoLabel.hidden = true
+        
+        photoImage.frame = CGRect(x: 10, y: 10, width: 260, height: 260)
+        
+        tableView.reloadData()
+    }
 }
+
+// MARK: Extension - TableView delegate
+
+extension TagDescriptionViewController {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 1 && indexPath.row == 0 {
+            pickPhoto()
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 1 && indexPath.row == 0 {
+            if photoImage.hidden {
+                return 44
+            }
+            else {
+                return 280
+            }
+        }
+        else {
+            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+        }
+    }
+}
+
+// MARK: Extension - ImagePicker & NavigationController delegates
+
+extension TagDescriptionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        dismissViewControllerAnimated(true, completion: nil)
+        
+        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        if let image = self.image {
+            showImage(image)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+

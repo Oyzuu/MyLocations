@@ -9,6 +9,11 @@
 import Foundation
 
 let myManagedObjectContextSaveDidFailNotification = "myManagedObjectContextSaveDidFailNotification"
+let applicationDocumentsDirectory: String = {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    
+    return paths[0]
+}()
 
 func fatalCoreDataError(error: ErrorType) {
     print("*** FATAL ERROR: \(error) ***")

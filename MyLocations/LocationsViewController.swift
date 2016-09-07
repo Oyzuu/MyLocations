@@ -12,28 +12,34 @@ import CoreData
 
 class LocationsViewController: UITableViewController {
     
+    // MARK: properties
     var managedObjectContext: NSManagedObjectContext!
     
 //    var locations = [Location]()
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest()
+        
         let entity = NSEntityDescription
             .entityForName("Location", inManagedObjectContext: self.managedObjectContext)
         fetchRequest.entity = entity
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
         
-        fetchRequest.fetchBatchSize = 20
+        let categorySortDescriptor   = NSSortDescriptor(key: "category", ascending: true)
+        let dateSortDescriptor       = NSSortDescriptor(key: "date",     ascending: true)
+        fetchRequest.sortDescriptors = [categorySortDescriptor, dateSortDescriptor]
+        
+        fetchRequest.fetchBatchSize  = 20
         
         let fetchedResultsController =
             NSFetchedResultsController(fetchRequest: fetchRequest,
                                        managedObjectContext: self.managedObjectContext,
-                                       sectionNameKeyPath: nil, cacheName: "Locations")
+                                       sectionNameKeyPath: "category",
+                                       cacheName: "Locations")
         fetchedResultsController.delegate = self
         
         return fetchedResultsController
     }()
-
+    
+    // MARK: Controller overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +47,8 @@ class LocationsViewController: UITableViewController {
         
 //        self.refreshControl = UIRefreshControl()
 //        self.refreshControl!.addTarget(self, action: #selector(refresh), forControlEvents: .ValueChanged)
+        
+        navigationItem.rightBarButtonItem = editButtonItem()
         
         refresh()
     }
@@ -68,6 +76,7 @@ class LocationsViewController: UITableViewController {
         }
     }
     
+    //MARK : Methods
     func refresh() {
         do {
             try fetchedResultsController.performFetch()
@@ -104,7 +113,7 @@ class LocationsViewController: UITableViewController {
 extension LocationsViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return (fetchedResultsController.sections?.count)!
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,10 +128,9 @@ extension LocationsViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! LocationCell
         cell.configureForLocation(location)
         
-        if indexPath.row % 2 == 1 {
-//            cell.backgroundColor = UIColor(red: 14/255, green: 122/255, blue: 254/255, alpha: 0.1)
-            cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
-        }
+//        if indexPath.row % 2 == 1 {
+//            cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
+//        }
         
         return cell
     }
@@ -140,6 +148,12 @@ extension LocationsViewController {
                 fatalCoreDataError(error)
             }
         }
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionInfo = fetchedResultsController.sections![section]
+        
+        return sectionInfo.name
     }
 }
 
@@ -165,7 +179,9 @@ extension LocationsViewController: NSFetchedResultsControllerDelegate {
         case .Delete:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
         case .Move  :
-            tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
+//            tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
         }
     }
     
