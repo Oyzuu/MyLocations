@@ -52,6 +52,10 @@ class TagDescriptionViewController: UITableViewController {
             coordinate.longitude = location.longitude
             date                 = location.date
             placemark            = location.placemark
+            
+            if location.hasPhoto {
+                image = UIImage(contentsOfFile: location.photoPath)
+            }
         }
     }
     
@@ -69,6 +73,10 @@ class TagDescriptionViewController: UITableViewController {
         categoryLabel.text   = category
         latitudeLabel.text   = String(format: "%.8f", coordinate.latitude)
         longitudeLabel.text  = String(format: "%.8f", coordinate.longitude)
+        
+        if let image = self.image {
+            showImage(image)
+        }
         
         if let placemark = self.placemark {
             addressLabel.text = stringFromPlacemark(placemark)
@@ -93,6 +101,7 @@ class TagDescriptionViewController: UITableViewController {
     }
     
     // MARK: Methods
+    
     @IBAction func cancel(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
